@@ -1,0 +1,10 @@
+.sidebar-item {
+    width: 75%;
+
+}
+.currentWordWrapper {
+    font-size: 2rem;
+}
+div {
+    border: 1px dotted black;
+}
