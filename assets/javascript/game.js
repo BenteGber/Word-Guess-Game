@@ -94,36 +94,116 @@ let wordLibrary = [
 
 // document.body.innerHTML = randomItem;
 
-
+//Current Word To guess
 let currentWord;
-let allowedGuesses;
-let correctGuesses;
 let keyPressed;
 let globalTemp;
 let dateCounter = 2018;
 // let wordElement = document.getElementById(`word`);
-let guessedLetters = [``];
+let allGuessedLetters = [``];
+let correctGuessedLetters;
+let wordDisplay = [];
+let indexArray = [];
 
 function GenerateWord() {
     currentWord = wordLibrary[Math.floor(Math.random() * wordLibrary.length)];
+    correctGuessedLetters = currentWord.split("");
+    for (var v = 0; v < currentWord.length; v++) {
+        if (currentWord[v] === " ") {
+            var index = v;
+            var node = (` `);
+
+        } else if (currentWord[v] === "(") {
+            var index = v;
+            var node = (`(`);
+
+        } else if (currentWord[v] === ")") {
+            var index = v;
+            var node = (`)`);
+
+        } else if (currentWord[v] === "-") {
+            var index = v;
+            var node = (`-`);
+
+        } else {
+            var index = v;
+            var node = (`_`);
+        }
+        wordDisplay.push(node);
+        indexArray = [] + index;
+
+    }
     console.log(currentWord);
+    console.log(wordDisplay);
 }
+
+
+// **************************Use this code************************************* 
+// **************************Use this code************************************* 
+// **************************Use this code************************************* 
+// **************************Use this code************************************* 
+// **************************Use this code************************************* 
+// With the this keywordWith the this keywordWith the this keywordWith the this keyword
+// original version
+// function createLetterHolders() {
+//     for (a = 0; a < currentWord.length; a++) {
+//         var para = document.createElement(`p`);
+//         para.setAttribute("id", "letter-holder");
+//         var node = document.createTextNode(`_`);
+//         para.appendChild(node);
+//         var element = document.getElementById("currentWordHolder");
+//         element.appendChild(para);
+// **************************Use this code************************************* 
+// **************************Use this code************************************* 
+// **************************Use this code************************************* 
+// **************************Use this code************************************* 
+// **************************Use this code************************************* 
+// **************************Use this code************************************* 
+
+
+//     }
+// }
+
+// new version
 function createLetterHolders() {
-    for (a = 0; a < currentWord.length; a++) {
-        var para = document.createElement(`p`);
-        var node = document.createTextNode(`_`);
+    // var para = document.createElement(`p`);
+    // para.setAttribute("id", "letter-holder");
+    var para = document.createElement(`p`);
+    para.setAttribute("id", "letter-holder");
+
+    for (var a = 0; a < currentWord.length; a++) {
+
+
+        if (currentWord[a] === " ") {
+            var node = document.createTextNode(`  `);
+
+        } else if (currentWord[a] === "(") {
+            var node = document.createTextNode(`( `);
+
+        } else if (currentWord[a] === ")") {
+            var node = document.createTextNode(`) `);
+
+        } else if (currentWord[a] === "-") {
+            var node = document.createTextNode(`- `);
+
+        } else {
+            var node = document.createTextNode(`_ `);
+
+        }
+
         para.appendChild(node);
         var element = document.getElementById("currentWordHolder");
         element.appendChild(para);
     }
+    $("letter-holder").append(wordDisplay);
+    console.log(wordDisplay.length);
 }
 
+//This happens when you load the page
 function startGame() {
     $(document).ready();
     GenerateWord();
     createLetterHolders();
-
-
 }
 startGame();
 
@@ -134,34 +214,78 @@ startGame();
 
 
 
-function checkForKeyPress() {
-    for (var i = 0; i < guessedLetters.length; i++) {
-        if (keyPressed == guessedLetters[i]) {
-            alert("already guessed");
-            return;
-        }
-    }
-}
+// function checkForKeyPress() {
+//     for (var i = 0; i < allGuessedLetters.length; i++) {
+//         if (keyPressed == allGuessedLetters[i]) {
+//             alert("already guessed");
+//             return;
+//         }
+//     }
+// }
+
+
+// Original Version
+// function checkForCorrectLetters() {
+//     for (z = 0; z < currentWord.length; z++) {
+//         if (currentWord.toLowerCase()[z] === keyPressed) {
+//             // pushLetterToScreen
+//             while (currentWord[z] === keyPressed) {
+//                 console.log(z + " check " + keyPressed);
+//                 document.getElementById("letter-holder").innerHTML = currentWord[z];
+//                 console.log(currentWord[z]);
+//                 return;
+//             }
+//         }
+
+//     }
+// }
+// currentWord[z] === keyPressed
+//New version
+
+
+
 function checkForCorrectLetters() {
-    for (z = 0; z < currentWord.length; z++) {
-        if (currentWord.toLowerCase()[z] == keyPressed) {
-            console.log("yup");
+    currentWord = currentWord.toLowerCase();
+    for (var z = 0; z < currentWord.length; z++) {
+        if (currentWord[z] === keyPressed) {
+            wordDisplay.splice(z, 1, keyPressed);
+            $("letter-holder").append(wordDisplay);
+            var displayedLetters = wordDisplay.join();
+            $("letter-holder").text(displayedLetters);
 
+
+            // var pushIndex = currentWord[z];
+            // var node = document.createTextNode(keyPressed);
+            // console.log(pushindex + node);
+
+
+
+            // while (z < currentWord.length) {
+            //     if (currentWord[z] === keyPressed) {
+            //         console.log(z + " check " + keyPressed);
+            //         document.getElementById("letter-holder").innerHTML = currentWord[z];
+            //         console.log(currentWord[z]);
+            //     }
+            // }
         }
+
+
     }
+
+
 }
-Function
 
 
 
 
 
+
+// This block happens when Key is Pressed
 document.onkeyup = function (event) {
     keyPressed = event.key.toLowerCase();
-    checkForKeyPress();
+    // checkForKeyPress();
     checkForCorrectLetters();
-    guessedLetters.push(keyPressed);
-    console.log(guessedLetters);
+    allGuessedLetters.push(keyPressed);
     return;
 }
 
@@ -171,14 +295,14 @@ document.onkeyup = function (event) {
     //     } else {
 //     }
 // }
-// function (keyPressed, guessedLetters) {}
+// function (keyPressed, allGuessedLetters) {}
 
 // 
 
 //     storePressedKeys();
 
     // console.log(keyPressed);
-    // console.log(guessedLetters[0]);
+    // console.log(allGuessedLetters[0]);
 
 //     if (globalTemp < 1.8) {
 //        console.log (`win`);
