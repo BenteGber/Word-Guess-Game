@@ -1,0 +1,53 @@
+body{
+     background: rgba(195, 213, 233, .75);
+}
+
+.wrapper {
+    background-image: url(../images/background.png);
+    background-size: cover;
+    border-radius: 0rem;
+    
+}
+
+ .nav, div{
+    background-color: rgba(246, 247, 249, .75);
+    
+}
+.sidebar-item:nth-child(odd){
+    text-align: center;
+    background:rgba(0, 101, 206, .90);
+    font-size: 1rem;
+}
+.sidebar-item:nth-child(even){
+    background: rgba(195, 213, 233, .75);
+     text-align: center;
+
+}
+.currentWordWrapper {
+    font-size: 2rem;
+}
+#currentWordHolder{
+    width :99%;
+    margin: 0 1rem;
+}
+div {
+    padding: 1.25rem;
+    border: 1px dotted black;
+    border-radius: 1rem;
+    
+}
+.row {
+    margin:0;
+    background-color: rgba(45, 124, 217, .60);
+        
+}
+#letter-holder{
+    letter-spacing: 0.1em;
+    font-size: 1.75rem;
+}
+
+.stats-section{
+    background: rgba(195, 213, 233, .50);
+}
+
+
